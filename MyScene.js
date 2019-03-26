@@ -23,6 +23,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.pyramid = new MyPyramid(this, 3, 1);
+		this.prism	= new MyPrism(this,5,1);
 
         //Other variables connected to MyInterface
         this.selectedMaterial = 0;
@@ -171,7 +172,10 @@ class MyScene extends CGFscene {
         
         this.setGlobalAmbientLight(this.intensity, this.intensity, this.intensity, 1);
 		
-        this.pyramid.display();
+        //this.pyramid.display();
+		
+		this.prism.display();
+		
         this.popMatrix();
         // ---- END Primitive drawing section
     }
