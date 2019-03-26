@@ -24,7 +24,7 @@ class MyScene extends CGFscene {
         this.axis 		= new CGFaxis(this);
         this.pyramid 	= new MyPyramid(this, 3, 1);
 		this.prism		= new MyPrism(this,5);
-		this.cylinder	= new MyCylinder(this, 5);
+		this.cylinder	= new MyCylinder(this, 22);
 
         //Other variables connected to MyInterface
         this.displayAxis = false;
@@ -52,12 +52,11 @@ class MyScene extends CGFscene {
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
     }
-
     initMaterials() {
         // Base Material
         this.material1 = new CGFappearance(this);
-        this.material1.setAmbient(1, 1, 0.9, 1.0);
-        this.material1.setDiffuse(0, 0, 0, 1.0);
+        this.material1.setAmbient(0.1, 0, 0, 1.0);
+        this.material1.setDiffuse(1, 0, 0, 1.0);
         this.material1.setSpecular(0, 0, 0, 1.0);
         this.material1.setShininess(10.0);
 	}
