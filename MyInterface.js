@@ -17,7 +17,8 @@ class MyInterface extends CGFinterface {
         var obj = this;
 
         this.gui.add(this.scene, 'displayAxis').name("Display axis");
-        this.gui.add(this.scene, 'prismD').name("Display prism");
+        this.gui.add(this.scene, 'displayPrism').name("Display prism");
+        this.gui.add(this.scene, 'displayCylinder').name("Display cylinder");
 
         // example of a dropdown that has numeric ID's associated, 
         // and an event handler to be called when the selection changes
