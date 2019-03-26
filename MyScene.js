@@ -21,15 +21,16 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         //Initialize scene objects
-        this.axis = new CGFaxis(this);
-        this.pyramid = new MyPyramid(this, 3, 1);
-		this.prism	= new MyPrism(this,5);
+        this.axis 		= new CGFaxis(this);
+        this.pyramid 	= new MyPyramid(this, 3, 1);
+		this.prism		= new MyPrism(this,5);
+		this.cylinder	= new MyCylinder(this, 5);
 
         //Other variables connected to MyInterface
         this.displayAxis = false;
 		this.prismD = true;
         this.scaleFactor = 1.0;
-		this.intensity = 0.3;
+		this.intensity = 1;
     }
     initLights() {
         this.setGlobalAmbientLight(1, 1, 1, 1);
@@ -53,21 +54,13 @@ class MyScene extends CGFscene {
     }
 
     initMaterials() {
-        // Red Ambient (no diffuse, no specular)
+        // Base Material
         this.material1 = new CGFappearance(this);
-        this.material1.setAmbient(1, 0, 0, 1.0);
+        this.material1.setAmbient(1, 1, 0.9, 1.0);
         this.material1.setDiffuse(0, 0, 0, 1.0);
         this.material1.setSpecular(0, 0, 0, 1.0);
         this.material1.setShininess(10.0);
-
-        // Red Diffuse (no ambient, no specular)
-        this.material2 = new CGFappearance(this);
-        this.material2.setAmbient(0.0, 0.0, 0.0, 1.0);
-        this.material2.setDiffuse(1, 0, 0, 1.0);
-        this.material2.setSpecular(0, 0, 0, 1.0);
-        this.material2.setShininess(10.0);
-
-    }
+	}
 	
     display() {
         // ---- BEGIN Background, camera and axis setup
@@ -89,13 +82,18 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
+		
+		// Default Material
+		this.material1.apply();
+		
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         this.setGlobalAmbientLight(this.intensity, this.intensity, this.intensity, 1);
 		
-		this.material1.apply();
-		
+		/*
 		if(this.prismD)
 			this.prism.display();
+		*/
+		this.cylinder.display();
 		
         this.popMatrix();
         // ---- END Primitive drawing section
