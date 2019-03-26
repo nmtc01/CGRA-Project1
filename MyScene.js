@@ -28,7 +28,8 @@ class MyScene extends CGFscene {
 
         //Other variables connected to MyInterface
         this.displayAxis = false;
-		this.prismD = true;
+		this.displayPrism = false;
+		this.displayCylinder = false;
         this.scaleFactor = 1.0;
 		this.intensity = 1;
     }
@@ -88,11 +89,11 @@ class MyScene extends CGFscene {
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         this.setGlobalAmbientLight(this.intensity, this.intensity, this.intensity, 1);
 		
-		/*
-		if(this.prismD)
+		
+		if(this.displayPrism)
 			this.prism.display();
-		*/
-		this.cylinder.display();
+		if(this.displayCylinder)
+			this.cylinder.display();
 		
         this.popMatrix();
         // ---- END Primitive drawing section
