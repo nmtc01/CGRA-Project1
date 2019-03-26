@@ -1,8 +1,8 @@
 /**
-* MyPyramid
+* MyPrism
 * @constructor
 */
-class MyPyramid extends CGFobject {
+class MyPrism extends CGFobject {
     constructor(scene, slices, stacks) {
         super(scene);
         this.slices = slices;
