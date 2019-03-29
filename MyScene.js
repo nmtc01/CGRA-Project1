@@ -22,9 +22,9 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.prism = new MyPrism(this, 100);
-        this.cylinder = new MyCylinder(this, 100);
-        this.tree       = new MyTree(this, 1, 1, 1, 1);
+        //this.prism = new MyPrism(this, 100);
+        //this.cylinder = new MyCylinder(this, 100);
+        this.tree       = new MyTree(this, 1, 1, 1, 1, this.trunk_mat, this.top_mat);
 
         //Objects connected to MyInterface
         this.displayPrism = false;
@@ -43,14 +43,25 @@ class MyScene extends CGFscene {
     }
     
     initMaterials(){
+        // TEXTURES
+        this.trunk_text = new CGFtexture(this, 'images/trunk.png');
+        //this.top_text = new CGFtexture(this, 'images/top.jpg');
 
-        //------ Applied Material
-        this.mat = new CGFappearance(this);
-        this.mat.setAmbient(1, 0.1, 0.1, 1);
-        this.mat.setDiffuse(0.2, 0.1, 0.1, 1);
-        this.mat.setSpecular(0.1, 0.1, 0.1, 1);
-        this.mat.setShininess(10.0);
-        //------
+
+        // MATERIALS
+        this.trunk_mat = new CGFappearance(this)
+        this.trunk_mat.setAmbient(1, 1, 1, 1);
+        this.trunk_mat.setDiffuse(1, 1, 1, 0.1);
+        this.trunk_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
+        this.trunk_mat.setShininess(10.0);
+        this.trunk_mat.setTexture(this.trunk_text);
+        
+        this.top_mat = new CGFappearance(this);
+        this.top_mat.setAmbient(1, 1, 1, 1);
+        this.top_mat.setDiffuse(1, 1, 1, 0.1);
+        this.top_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.top_mat.setShininess(10.0);
+        this.top_mat.setTexture(this.trunk_text);
     }
 
     setDefaultAppearance() {
@@ -76,16 +87,15 @@ class MyScene extends CGFscene {
 
         //Apply default appearance
         this.setDefaultAppearance();
-        this.mat.apply();
 
         // ---- BEGIN Primitive drawing section
-
+/*
         if(this.displayCylinder)
             this.cylinder.display();
 
         if(this.displayPrism)
             this.prism.display();
-
+*/
         this.tree.display();
 
 
