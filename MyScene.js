@@ -26,7 +26,8 @@ class MyScene extends CGFscene {
         //this.prism = new MyPrism(this, 100);
         //this.cylinder = new MyCylinder(this, 100);
         this.tree       = new MyTree(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat);
-        this.group = new MyTreeGroupPatch(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat)
+        this.group = new MyTreeGroupPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
+        this.row    = new MyTreeRowPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
 
         //Objects connected to MyInterface
         this.displayPrism = false;
@@ -100,7 +101,8 @@ class MyScene extends CGFscene {
             this.prism.display();
 */
         //this.tree.display();
-        this.group.display();
+        //this.group.display();
+        this.row.display();
 
 
         // ---- END Primitive drawing section
