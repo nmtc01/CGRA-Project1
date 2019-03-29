@@ -21,47 +21,44 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         //Initialize scene objects
-        this.axis 		= new CGFaxis(this);
-        this.pyramid 	= new MyPyramid(this, 3, 1);
-		this.prism		= new MyPrism(this,5);
-		this.cylinder	= new MyCylinder(this, 22);
+        this.axis = new CGFaxis(this);
+        this.prism = new MyPrism(this, 100);
+        this.cylinder = new MyCylinder(this, 100);
 
-        //Other variables connected to MyInterface
-        this.displayAxis = false;
-		this.displayPrism = false;
-		this.displayCylinder = false;
-        this.scaleFactor = 1.0;
-		this.intensity = 1;
+        //Objects connected to MyInterface
+        this.displayPrism = false;
+        this.displayCylinder = false;
     }
+    
     initLights() {
-        this.setGlobalAmbientLight(1, 1, 1, 1);
-
-        this.lights[0].setPosition(2.0, 2.0, -1.0, 1.0);
+        this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].disable();
-        this.lights[0].setVisible(true);
+        this.lights[0].enable();
         this.lights[0].update();
-
-        this.lights[1].setPosition(0.0, -1.0, 2.0, 1.0);
-        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[1].setSpecular(1.0, 1.0, 0.0, 1.0);
-        this.lights[1].disable();
-        this.lights[1].setVisible(true);
-        this.lights[1].update();
     }
+    
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
-    initMaterials() {
-        // Base Material
-        this.material1 = new CGFappearance(this);
-        this.material1.setAmbient(0.1, 0, 0, 1.0);
-        this.material1.setDiffuse(1, 0, 0, 1.0);
-        this.material1.setSpecular(0, 0, 0, 1.0);
-        this.material1.setShininess(10.0);
-	}
-	
+    
+    initMaterials(){
+
+        //------ Applied Material
+        this.mat = new CGFappearance(this);
+        this.mat.setAmbient(1, 0.1, 0.1, 1);
+        this.mat.setDiffuse(0.2, 0.1, 0.1, 1);
+        this.mat.setSpecular(0.1, 0.1, 0.1, 1);
+        this.mat.setShininess(10.0);
+        //------
+    }
+
+    setDefaultAppearance() {
+        this.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.setShininess(10.0);
+    }
+
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -72,30 +69,23 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-        
-        this.lights[0].update();
-        this.lights[1].update();
 
         // Draw axis
-        if (this.displayAxis)
-            this.axis.display();
+        this.axis.display();
+
+        //Apply default appearance
+        this.setDefaultAppearance();
+        this.mat.apply();
 
         // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
-		
-		// Default Material
-		this.material1.apply();
-		
-        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-        this.setGlobalAmbientLight(this.intensity, this.intensity, this.intensity, 1);
-		
-		
-		if(this.displayPrism)
-			this.prism.display();
-		if(this.displayCylinder)
-			this.cylinder.display();
-		
-        this.popMatrix();
+
+        if(this.displayCylinder)
+            this.cylinder.display();
+
+        if(this.displayPrism)
+            this.prism.display();
+
+
         // ---- END Primitive drawing section
     }
 }
