@@ -3,7 +3,7 @@
 * @constructor
 */
 class MyTree extends CGFobject {
-	constructor(scene, trunk_height, trunk_radius, top_height, top_radius) {
+	constructor(scene, trunk_height, trunk_radius, top_height, top_radius, trunk_text, top_text) {
 		super(scene);
 		
         this.scene = scene;
@@ -12,22 +12,12 @@ class MyTree extends CGFobject {
         this.top_height = top_height;
         this.top_radius = top_radius;
 
-
-		this.initMaterials();
+        this.trunk_text = trunk_text;
+        this.top_text = top_text;
 		
         // Objects
         this.trunk  = new MyCylinder(this.scene, 10);
         this.top    = new MyCone(this.scene, 10);
-    }
-    
-	initMaterials() {
-		//this.text = new CGFtexture(this.scene, 'images/tangram.png');
-        this.tree = new CGFappearance(this.scene);
-        this.tree.setAmbient(1, 1, 1, 1);
-        this.tree.setDiffuse(1, 1, 1, 1);
-        this.tree.setSpecular(1, 1, 1, 1);
-        this.tree.setShininess(10.0);
-        //this.tree.setTexture(this.text);
     }
 
 	display(){
@@ -35,6 +25,7 @@ class MyTree extends CGFobject {
 
         // TRUNK
         this.scene.scale(this.trunk_radius, this.trunk_height, this.trunk_radius);
+        this.trunk_text.apply();
         this.trunk.display();
         
         this.scene.popMatrix();
@@ -43,6 +34,7 @@ class MyTree extends CGFobject {
         // TOP
         this.scene.translate(0, this.trunk_height, 0);
         this.scene.scale(this.top_radius, this.top_height, this.top_radius);
+        this.top_text.apply();
         this.top.display();
 
 
