@@ -25,7 +25,8 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         //this.prism = new MyPrism(this, 100);
         //this.cylinder = new MyCylinder(this, 100);
-        this.tree       = new MyTree(this, 1, 1, 1, 1, this.trunk_mat, this.top_mat);
+        this.tree       = new MyTree(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat);
+        this.group = new MyTreeGroupPatch(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat)
 
         //Objects connected to MyInterface
         this.displayPrism = false;
@@ -40,13 +41,13 @@ class MyScene extends CGFscene {
     }
     
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 75, 75), vec3.fromValues(0, 0, 0));
     }
     
     initMaterials(){
         // TEXTURES
         this.trunk_text = new CGFtexture(this, 'images/trunk.png');
-        //this.top_text = new CGFtexture(this, 'images/top.jpg');
+        this.top_text = new CGFtexture(this, 'images/top.png');
 
 
         // MATERIALS
@@ -56,13 +57,14 @@ class MyScene extends CGFscene {
         this.trunk_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
         this.trunk_mat.setShininess(10.0);
         this.trunk_mat.setTexture(this.trunk_text);
+        this.trunk_mat.setTextureWrap('REPEAT', 'REPEAT');
         
         this.top_mat = new CGFappearance(this);
         this.top_mat.setAmbient(1, 1, 1, 1);
         this.top_mat.setDiffuse(1, 1, 1, 0.1);
         this.top_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
         this.top_mat.setShininess(10.0);
-        this.top_mat.setTexture(this.trunk_text);
+        this.top_mat.setTexture(this.top_text);
     }
 
     setDefaultAppearance() {
@@ -97,7 +99,8 @@ class MyScene extends CGFscene {
         if(this.displayPrism)
             this.prism.display();
 */
-        this.tree.display();
+        //this.tree.display();
+        this.group.display();
 
 
         // ---- END Primitive drawing section
