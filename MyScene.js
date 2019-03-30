@@ -28,7 +28,9 @@ class MyScene extends CGFscene {
         this.tree   = new MyTree(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat);
         this.group 	= new MyTreeGroupPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
         this.row    = new MyTreeRowPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
-		this.house 	= new MyHouse(this, 1);
+        this.house2 	= new MyHouse(this, 2);
+        this.house1     = new MyHouse(this, 1);
+        this.house0     = new MyHouse(this, 0);
         //Objects connected to MyInterface
         this.displayPrism = false;
         this.displayCylinder = false;
@@ -93,12 +95,24 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
+        this.pushMatrix();
 
-        //this.tree.display();
-        //this.group.display();
-        //this.row.display();
-		this.house.display();
+        this.house2.display();
 
+        this.popMatrix();
+        this.pushMatrix();
+
+        this.translate(0,0,2.4);
+        this.house0.display();
+        
+        this.popMatrix();
+        this.pushMatrix();
+
+        this.translate(3.4,0,0);
+        this.house1.display();
+
+
+        this.popMatrix();
         // ---- END Primitive drawing section
     }
 }
