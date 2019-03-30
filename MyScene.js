@@ -25,10 +25,10 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         //this.prism = new MyPrism(this, 100);
         //this.cylinder = new MyCylinder(this, 100);
-        this.tree       = new MyTree(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat);
-        this.group = new MyTreeGroupPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
+        this.tree   = new MyTree(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat);
+        this.group 	= new MyTreeGroupPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
         this.row    = new MyTreeRowPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
-
+		this.house 	= new MyHouse(this, 1);
         //Objects connected to MyInterface
         this.displayPrism = false;
         this.displayCylinder = false;
@@ -42,7 +42,7 @@ class MyScene extends CGFscene {
     }
     
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 75, 75), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
     
     initMaterials(){
@@ -93,17 +93,11 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-/*
-        if(this.displayCylinder)
-            this.cylinder.display();
 
-        if(this.displayPrism)
-            this.prism.display();
-*/
         //this.tree.display();
         //this.group.display();
-        this.row.display();
-
+        //this.row.display();
+		this.house.display();
 
         // ---- END Primitive drawing section
     }
