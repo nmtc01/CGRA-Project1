@@ -31,6 +31,9 @@ class MyScene extends CGFscene {
         this.house2 	= new MyHouse(this, 2);
         this.house1     = new MyHouse(this, 1);
         this.house0     = new MyHouse(this, 0);
+        this.skybox     = new MyCubeMap(this);
+
+
         //Objects connected to MyInterface
         this.displayPrism = false;
         this.displayCylinder = false;
@@ -51,6 +54,7 @@ class MyScene extends CGFscene {
         // TEXTURES
         this.trunk_text = new CGFtexture(this, 'images/trunk.png');
         this.top_text = new CGFtexture(this, 'images/top.png');
+        this.skybox_text = new CGFtexture(this, 'images/cubemaps_skybox.png');
 
 
         // MATERIALS
@@ -68,6 +72,13 @@ class MyScene extends CGFscene {
         this.top_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
         this.top_mat.setShininess(10.0);
         this.top_mat.setTexture(this.top_text);
+
+        this.skybox_mat = new CGFappearance(this)
+        this.skybox_mat.setAmbient(1, 1, 1, 1);
+        this.skybox_mat.setDiffuse(1, 1, 1, 0.1);
+        this.skybox_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
+        this.skybox_mat.setShininess(10.0);
+        this.skybox_mat.setTexture(this.skybox_text);
     }
 
     setDefaultAppearance() {
@@ -95,7 +106,7 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
+        /*this.pushMatrix();
 
         this.house2.display();
 
@@ -111,8 +122,9 @@ class MyScene extends CGFscene {
         this.translate(3.4,0,0);
         this.house1.display();
 
-
-        this.popMatrix();
+        this.popMatrix();*/
+        this.skybox_mat.apply();
+        this.skybox.display();
         // ---- END Primitive drawing section
     }
 }
