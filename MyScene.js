@@ -54,7 +54,7 @@ class MyScene extends CGFscene {
         // TEXTURES
         this.trunk_text = new CGFtexture(this, 'images/trunk.png');
         this.top_text = new CGFtexture(this, 'images/top.png');
-        this.skybox_text = new CGFtexture(this, 'images/cubemaps_skybox.png');
+        this.skybox_text = new CGFtexture(this, 'images/rockyvalley_bk.png');
 
 
         // MATERIALS
@@ -79,6 +79,8 @@ class MyScene extends CGFscene {
         this.skybox_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
         this.skybox_mat.setShininess(10.0);
         this.skybox_mat.setTexture(this.skybox_text);
+        this.skybox_mat.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+        
     }
 
     setDefaultAppearance() {
