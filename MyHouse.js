@@ -14,7 +14,7 @@ class MyHouse extends CGFobject {
         }
         
         // Objects
-		this.wall 	= new MyUnitCubeQuad(this.scene);
+		this.wall 	= new MyUnitCubeQuad(this.scene, scene.empty, scene.empty, scene.empty);
 		this.roof	= new MyPyramid(this.scene, 4);
 		this.column	= new MyPrism(this.scene, 6);
 		
