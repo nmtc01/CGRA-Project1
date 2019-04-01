@@ -19,7 +19,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
-        //this.enableTextures(true);
+        this.enableTextures(true);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -58,6 +58,9 @@ class MyScene extends CGFscene {
         this.trunk_text = new CGFtexture(this, 'images/trunk.png');
         this.top_text = new CGFtexture(this, 'images/top.png');
         this.skybox_text = new CGFtexture(this, 'images/rockyvalley_bk.png');
+        this.topText = new CGFtexture(this, 'images/mineTop.png');
+		this.botText = new CGFtexture(this, 'images/mineBottom.png');
+        this.sideText = new CGFtexture(this, 'images/mineSide.png');
 
 
         // MATERIALS
@@ -82,6 +85,35 @@ class MyScene extends CGFscene {
         this.skybox_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
         this.skybox_mat.setShininess(10.0);
         this.skybox_mat.setTexture(this.skybox_text);
+
+        this.topMat = new CGFappearance(this);
+        this.topMat.setAmbient(1, 1, 1, 1);
+        this.topMat.setDiffuse(1, 1, 1, 1);
+        this.topMat.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.topMat.setShininess(10.0);
+        this.topMat.setTexture(this.topTex);
+
+		this.sideMat = new CGFappearance(this);
+        this.sideMat.setAmbient(1, 1, 1, 1.0);
+        this.sideMat.setDiffuse(1, 1, 1, 0.01);
+        this.sideMat.setSpecular(1, 1, 1, 1.0);
+        this.sideMat.setShininess(10.0);
+        this.sideMat.setTexture(this.sideText);
+        this.sideMat.setTextureWrap('REPEAT', 'REPEAT');
+		
+		this.botMat = new CGFappearance(this);
+        this.botMat.setAmbient(1, 1, 1, 1.0);
+        this.botMat.setDiffuse(1, 1, 1, 0.01);
+        this.botMat.setSpecular(1, 1, 1, 1.0);
+        this.botMat.setShininess(10.0);
+        this.botMat.setTexture(this.botText);
+        this.botMat.setTextureWrap('REPEAT', 'REPEAT');
+        
+        this.empty = new CGFappearance(this);
+        this.empty.setAmbient(1, 1, 1, 1);
+        this.empty.setDiffuse(1, 1, 1, 1);
+        this.empty.setSpecular(1, 1, 1, 1);
+        this.empty.setShininess(10.0);
         
     }
 
@@ -104,28 +136,33 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        //this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
+        
+        this.empty.apply();
         this.pushMatrix();
 
         this.house2.display();
 
+        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
         this.translate(0,0,2.4);
         this.house0.display();
         
+        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
         this.translate(3.4,0,0);
         this.house1.display();
 
+        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
@@ -133,24 +170,28 @@ class MyScene extends CGFscene {
         this.scale(200,200,0);
         this.terrain.display();
 
+        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
         this.skybox_mat.apply();
         this.skybox.display();
-
+        
+        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
         this.translate(-15,0,0);
         this.hill.display();
         
+        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
         this.translate(-10,0,-15);
         this.hill.display();
         
+        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
@@ -158,6 +199,7 @@ class MyScene extends CGFscene {
         this.translate(10,0,-20);
         this.group.display();
         
+        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
@@ -165,6 +207,7 @@ class MyScene extends CGFscene {
         this.rotate(Math.PI/3,0,-1,0);
         this.group.display();
         
+        this.empty.apply();
         this.popMatrix();
         // ---- END Primitive drawing section
     }
