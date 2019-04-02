@@ -31,7 +31,7 @@ class MyScene extends CGFscene {
         this.house2 	= new MyHouse(this, 2);
         this.house1     = new MyHouse(this, 1);
         this.house0     = new MyHouse(this, 0);
-        this.skybox     = new MyCubeMap(this);
+        this.skybox     = new MyCubeMap(this, this.skybox_ft_mat, this.skybox_bk_mat, this.skybox_dn_mat, this.skybox_lf_mat, this.skybox_rt_mat, this.skybox_up_mat);
         this.terrain    = new MyQuad(this);
         this.hill       = new MyVoxelHill(this, 10);
 
@@ -57,7 +57,12 @@ class MyScene extends CGFscene {
         // TEXTURES
         this.trunk_text = new CGFtexture(this, 'images/trunk.png');
         this.top_text = new CGFtexture(this, 'images/top.png');
-        this.skybox_text = new CGFtexture(this, 'images/rockyvalley_bk.png');
+        this.skybox_ft_text = new CGFtexture(this, 'images/ame_siege/siege_ft.tga');
+        this.skybox_bk_text = new CGFtexture(this, 'images/ame_siege/siege_bk.tga');
+        this.skybox_dn_text = new CGFtexture(this, 'images/ame_siege/siege_dn.tga');
+        this.skybox_lf_text = new CGFtexture(this, 'images/ame_siege/siege_lf.tga');
+        this.skybox_rt_text = new CGFtexture(this, 'images/ame_siege/siege_rt.tga');
+        this.skybox_up_text = new CGFtexture(this, 'images/ame_siege/siege_up.tga');
         this.topText = new CGFtexture(this, 'images/mineTop.png');
 		this.botText = new CGFtexture(this, 'images/mineBottom.png');
         this.sideText = new CGFtexture(this, 'images/mineSide.png');
@@ -79,12 +84,22 @@ class MyScene extends CGFscene {
         this.top_mat.setShininess(10.0);
         this.top_mat.setTexture(this.top_text);
 
-        this.skybox_mat = new CGFappearance(this)
-        this.skybox_mat.setAmbient(1, 1, 1, 1);
-        this.skybox_mat.setDiffuse(1, 1, 1, 0.1);
-        this.skybox_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
-        this.skybox_mat.setShininess(10.0);
-        this.skybox_mat.setTexture(this.skybox_text);
+        this.skybox_ft_mat = new CGFappearance(this)
+        this.skybox_ft_mat.setAmbient(1, 1, 1, 1);
+        this.skybox_ft_mat.setDiffuse(1, 1, 1, 0.1);
+        this.skybox_ft_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
+        this.skybox_ft_mat.setShininess(10.0);
+        this.skybox_bk_mat = this.skybox_ft_mat;
+        this.skybox_dn_mat = this.skybox_ft_mat;
+        this.skybox_lf_mat = this.skybox_ft_mat;
+        this.skybox_rt_mat = this.skybox_ft_mat;
+        this.skybox_up_mat = this.skybox_ft_mat;
+        this.skybox_ft_mat.setTexture(this.skybox_ft_text);
+        this.skybox_bk_mat.setTexture(this.skybox_bk_text);
+        this.skybox_dn_mat.setTexture(this.skybox_dn_text);
+        this.skybox_lf_mat.setTexture(this.skybox_lf_text);
+        this.skybox_rt_mat.setTexture(this.skybox_rt_text);
+        this.skybox_up_mat.setTexture(this.skybox_up_text);
 
         this.topMat = new CGFappearance(this);
         this.topMat.setAmbient(1, 1, 1, 1);
@@ -136,7 +151,7 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        //this.axis.display();
+        this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
@@ -146,21 +161,21 @@ class MyScene extends CGFscene {
         this.empty.apply();
         this.pushMatrix();
 
-        this.house2.display();
+        //this.house2.display();
 
         this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
         this.translate(0,0,2.4);
-        this.house0.display();
+        //this.house0.display();
         
         this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
         this.translate(3.4,0,0);
-        this.house1.display();
+        //this.house1.display();
 
         this.empty.apply();
         this.popMatrix();
@@ -168,13 +183,13 @@ class MyScene extends CGFscene {
 
         this.rotate(Math.PI/2, -1,0,0);
         this.scale(200,200,0);
-        this.terrain.display();
+        //this.terrain.display();
 
         this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
-        this.skybox_mat.apply();
+        //this.skybox_mat.apply();
         this.skybox.display();
         
         this.empty.apply();
@@ -182,14 +197,14 @@ class MyScene extends CGFscene {
         this.pushMatrix();
 
         this.translate(-15,0,0);
-        this.hill.display();
+        //this.hill.display();
         
         this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
 
         this.translate(-10,0,-15);
-        this.hill.display();
+        //this.hill.display();
         
         this.empty.apply();
         this.popMatrix();
@@ -197,7 +212,7 @@ class MyScene extends CGFscene {
 
         this.scale(0.5,0.5,0.5);
         this.translate(10,0,-20);
-        this.group.display();
+        //this.group.display();
         
         this.empty.apply();
         this.popMatrix();
@@ -205,7 +220,7 @@ class MyScene extends CGFscene {
 
         this.translate(22,0,15);
         this.rotate(Math.PI/3,0,-1,0);
-        this.group.display();
+        //this.group.display();
         
         this.empty.apply();
         this.popMatrix();

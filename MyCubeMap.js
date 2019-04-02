@@ -3,52 +3,69 @@
 * @constructor
 */
 class MyCubeMap extends CGFobject {
-	constructor(scene) {
+	constructor(scene, skybox_ft_text, skybox_bk_text, skybox_dn_text, skybox_lf_text, skybox_rt_text, skybox_up_text) {
 		super(scene);
-        this.initBuffers();
+		this.scene = scene;
+		this.skybox_ft_text = skybox_ft_text;
+		this.skybox_bk_text = skybox_bk_text;
+		this.skybox_dn_text = skybox_dn_text;
+		this.skybox_lf_text = skybox_lf_text;
+		this.skybox_rt_text = skybox_rt_text;
+		this.skybox_up_text = skybox_up_text;
+		this.quad = new MyQuad(scene);
 	}
-	initBuffers() {
-		this.vertices = [
-			-200, -200, 200,	//0
-			200, -200, 200, 	//1
-			200, 200, 200,  	//2
-			-200, 200, 200,	    //3
-			
-			-200, -200, -200,	//4
-			200, -200, -200,	//5
-			200, 200, -200,	    //6
-            -200, 200, -200	    //7
-		];
 
-		this.indices = [
-			3, 1, 0,
-            3, 2, 1,
-            
-            2, 5, 1,
-            2, 6, 5,
+	display() {
+		//Face Inferior
+		this.scene.pushMatrix();
+		this.scene.scale(50,1,50);
+		this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+		this.scene.translate(0, 0, -25);
+		this.skybox_dn_text.apply();
+		this.quad.display();
+		this.scene.popMatrix();
 
-            6, 4, 5,
-            6, 7, 4,
+		//Faces Laterais
+		this.scene.pushMatrix();
+		this.scene.scale(50,50,1);
+		this.scene.translate(0, 0, -25);
+		this.skybox_ft_text.apply();
+		this.quad.display();
+		this.scene.popMatrix();
 
-            7, 0, 4,
-            7, 3, 0,
+		this.scene.pushMatrix();
+		this.scene.scale(1,50,50);
+		this.scene.rotate(Math.PI / 2, 0, 1, 0);
+		this.scene.translate(0, 0, -25);
+		this.skybox_lf_text.apply();
+		this.quad.display();
+		this.scene.popMatrix();
 
-            3, 6, 2,
-            3, 7, 6,
-            
-            0, 5, 4,
-            0, 1, 5
-        ];
-        
-        this.texCoords = [
-            0,0,
-            0,1,
-            1,1,
-            0,1,
-        ];
+		this.scene.pushMatrix();
+		this.scene.scale(1,50,50);
+		this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+		this.scene.translate(0, 0, -25);
+		this.skybox_rt_text.apply();
+		this.quad.display();
+		this.scene.popMatrix();
 
-		this.primitiveType = this.scene.gl.TRIANGLES;
-		this.initGLBuffers();
+		this.scene.pushMatrix();
+		this.scene.scale(50,50,1);
+		this.scene.rotate(Math.PI, 0, 1, 0);
+		this.scene.translate(0, 0, -25);
+		this.skybox_bk_text.apply();
+		this.quad.display();
+		this.scene.popMatrix();
+
+		//Face Superior
+		this.scene.pushMatrix();
+		this.scene.scale(50,1,50);
+		this.scene.rotate(Math.PI / 2, 1, 0, 0);
+		this.scene.translate(0, 0, -25);
+		this.skybox_up_text.apply();
+		this.quad.display();
+		this.scene.popMatrix();
 	}
+
 }
 
