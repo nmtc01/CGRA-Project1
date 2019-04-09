@@ -11,6 +11,7 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
         this.initMaterials();
+        this.initCoords();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -34,7 +35,8 @@ class MyScene extends CGFscene {
         this.skybox     = new MyCubeMap(this, this.skybox_mat);
         this.terrain    = new MyQuad(this);
         this.hill       = new MyVoxelHill(this, 10);
-
+        
+        this.terrain.updateTexCoords(this.terrain_coords);
 
         //Objects connected to MyInterface
         this.displayPrism = false;
@@ -53,6 +55,15 @@ class MyScene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(100, 100, 100), vec3.fromValues(0, 0, 0));
     }
     
+    initCoords() {
+        this.terrain_coords = [
+			0, 200,
+			200, 200,
+			0, 0,
+			200, 0
+		]
+    }
+
     initMaterials(){
         // TEXTURES
         this.trunk_text = new CGFtexture(this, 'images/trunk.png');
@@ -90,7 +101,8 @@ class MyScene extends CGFscene {
         this.topMat.setDiffuse(1, 1, 1, 1);
         this.topMat.setSpecular(0.1, 0.1, 0.1, 0.1);
         this.topMat.setShininess(10.0);
-        this.topMat.setTexture(this.topTex);
+        this.topMat.setTexture(this.topText);
+        this.topMat.setTextureWrap('REPEAT', 'REPEAT');
 
 		this.sideMat = new CGFappearance(this);
         this.sideMat.setAmbient(1, 1, 1, 1.0);
@@ -167,6 +179,7 @@ class MyScene extends CGFscene {
 
         this.rotate(Math.PI/2, -1,0,0);
         this.scale(200,200,0);
+        this.topMat.apply();
         this.terrain.display();
 
         this.empty.apply();
