@@ -33,6 +33,7 @@ class MyScene extends CGFscene {
         this.skybox     = new MyCubeMap(this, this.skybox_mat);
         this.terrain    = new MyQuad(this);
         this.hill       = new MyVoxelHill(this, 10);
+        this.fire       = new MyFire(this, 10, 5, 10, 10, this.trunk_mat, this.top_mat);
         
         this.terrain.updateTexCoords(this.terrain_coords);
 
@@ -252,6 +253,13 @@ class MyScene extends CGFscene {
         this.translate(2.5,0,-30);
         this.row.display();
         
+        this.empty.apply();
+        this.popMatrix();
+        this.pushMatrix();
+		
+		this.translate(10,0,10);
+        this.fire.display();
+
         this.empty.apply();
         this.popMatrix();
         // ---- END Primitive drawing section
