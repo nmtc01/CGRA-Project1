@@ -82,7 +82,8 @@ class MyScene extends CGFscene {
         this.topText = new CGFtexture(this, 'images/mineTop.png');
 		this.botText = new CGFtexture(this, 'images/mineBottom.png');
         this.sideText = new CGFtexture(this, 'images/mineSide.png');
-        this.skyboxText = new CGFtexture(this, 'images/Skybox.png');
+        this.skyboxText_day = new CGFtexture(this, 'images/Skybox.png');
+        this.skyboxText_night = new CGFtexture(this, 'images/Skybox-night.png');
 
         // MATERIALS
         this.trunk_mat = new CGFappearance(this)
@@ -100,12 +101,19 @@ class MyScene extends CGFscene {
         this.top_mat.setShininess(10.0);
         this.top_mat.setTexture(this.top_text);
 
-        this.skybox_mat = new CGFappearance(this)
-        this.skybox_mat.setAmbient(1, 1, 1, 1);
-        this.skybox_mat.setDiffuse(1, 1, 1, 0.1);
-        this.skybox_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
-        this.skybox_mat.setShininess(10.0);
-        this.skybox_mat.setTexture(this.skyboxText);
+        this.skybox_day_mat = new CGFappearance(this)
+        this.skybox_day_mat.setAmbient(1, 1, 1, 1);
+        this.skybox_day_mat.setDiffuse(1, 1, 1, 0.1);
+        this.skybox_day_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
+        this.skybox_day_mat.setShininess(10.0);
+        this.skybox_day_mat.setTexture(this.skyboxText_day);
+
+        this.skybox_night_mat = new CGFappearance(this)
+        this.skybox_night_mat.setAmbient(1, 1, 1, 1);
+        this.skybox_night_mat.setDiffuse(1, 1, 1, 0.1);
+        this.skybox_night_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
+        this.skybox_night_mat.setShininess(10.0);
+        this.skybox_night_mat.setTexture(this.skyboxText_night);
 
         this.topMat = new CGFappearance(this);
         this.topMat.setAmbient(1, 1, 1, 1);
@@ -197,7 +205,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
         this.pushMatrix();
 
-        this.skybox_mat.apply();
+        this.skybox_day_mat.apply();
         this.skybox.display();
         
         this.empty.apply();
