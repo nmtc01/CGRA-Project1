@@ -24,8 +24,6 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        //this.prism = new MyPrism(this, 100);
-        //this.cylinder = new MyCylinder(this, 100);
         this.tree   = new MyTree(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat);
         this.group 	= new MyTreeGroupPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
         this.row    = new MyTreeRowPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
@@ -39,16 +37,29 @@ class MyScene extends CGFscene {
         this.terrain.updateTexCoords(this.terrain_coords);
 
         //Objects connected to MyInterface
-        this.displayPrism = false;
-        this.displayCylinder = false;
+        this.day_night = false;
     }
     
     initLights() {
-        this.lights[0].setPosition(10, 10, 10, 1);
-        this.lights[0].setVisible(true);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        // SUN
+        this.lights[0].setPosition(0, 200, 200, 1);
+        this.lights[0].setVisible(false);
+        this.lights[0].setDiffuse(0.945, 0.855, 0.643, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
+        // MOON
+        this.lights[3].setPosition(0, 200, 200, 1);
+        this.lights[3].setVisible(false);
+        this.lights[3].setDiffuse(0.21, 0.21, 0.533, 1.0);
+        this.lights[3].disable();
+        this.lights[3].update();
+        // FIRE
+        this.lights[3].setPosition(20, 0, 20, 1);
+        this.lights[3].setVisible(false);
+        this.lights[3].setDiffuse(0.886, 0.345, 0.133, 1.0);
+        this.lights[3].disable();
+        this.lights[3].setQuadraticAttenuation(1);
+        this.lights[3].update();
     }
     
     initCameras() {
@@ -222,5 +233,23 @@ class MyScene extends CGFscene {
         this.empty.apply();
         this.popMatrix();
         // ---- END Primitive drawing section
+
+        if(this.day_night){
+            // NIGHT
+            this.lights[0].disable();
+            this.lights[0].update();
+            this.lights[1].enable();
+            this.lights[1].update();
+            this.lights[2].enable();
+            this.lights[2].update();
+        }else{
+            // DAY
+            this.lights[0].enable();
+            this.lights[0].update();
+            this.lights[1].disable();
+            this.lights[1].update();
+            this.lights[2].disable();
+            this.lights[2].update();
+        }
     }
 }
