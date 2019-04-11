@@ -49,30 +49,30 @@ class MyScene extends CGFscene {
         this.lights[0].enable();
         this.lights[0].update();
         // MOON
-        this.lights[3].setPosition(0, 200, 200, 1);
-        this.lights[3].setVisible(false);
-        this.lights[3].setDiffuse(0.21, 0.21, 0.533, 1.0);
-        this.lights[3].disable();
-        this.lights[3].update();
+        this.lights[1].setPosition(0, 200, 200, 1);
+        this.lights[1].setVisible(false);
+        this.lights[1].setDiffuse(0.21, 0.21, 0.533, 1.0);
+        this.lights[1].disable();
+        this.lights[1].update();
         // FIRE
-        this.lights[3].setPosition(20, 0, 20, 1);
-        this.lights[3].setVisible(false);
-        this.lights[3].setDiffuse(0.886, 0.345, 0.133, 1.0);
-        this.lights[3].disable();
-        this.lights[3].setQuadraticAttenuation(1);
-        this.lights[3].update();
+        this.lights[2].setPosition(0, 3, 0, 1);
+        this.lights[2].setVisible(true);
+        this.lights[2].setDiffuse(0.886, 0, 0, 1.0);
+        this.lights[2].disable();
+        this.lights[2].setLinearAttenuation(1);
+        this.lights[2].update();
     }
     
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(100, 100, 100), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
     }
     
     initCoords() {
         this.terrain_coords = [
-			0, 200,
-			200, 200,
+			0, 100,
+			100, 100,
 			0, 0,
-			200, 0
+			100, 0
 		]
     }
 
@@ -85,6 +85,7 @@ class MyScene extends CGFscene {
         this.sideText = new CGFtexture(this, 'images/mineSide.png');
         this.skyboxText_day = new CGFtexture(this, 'images/Skybox.png');
         this.skyboxText_night = new CGFtexture(this, 'images/Skybox-night.png');
+        this.house_side = new CGFtexture(this, 'images/house_side.png');
 
         // MATERIALS
         this.trunk_mat = new CGFappearance(this)
@@ -139,6 +140,14 @@ class MyScene extends CGFscene {
         this.botMat.setShininess(10.0);
         this.botMat.setTexture(this.botText);
         this.botMat.setTextureWrap('REPEAT', 'REPEAT');
+		
+		this.houseSide = new CGFappearance(this);
+        this.houseSide.setAmbient(1, 1, 1, 1.0);
+        this.houseSide.setDiffuse(1, 1, 1, 0.01);
+        this.houseSide.setSpecular(1, 1, 1, 1.0);
+        this.houseSide.setShininess(10.0);
+        this.houseSide.setTexture(this.house_side);
+        this.houseSide.setTextureWrap('REPEAT', 'REPEAT');
         
         this.empty = new CGFappearance(this);
         this.empty.setAmbient(1, 1, 1, 1);
@@ -198,7 +207,7 @@ class MyScene extends CGFscene {
         this.pushMatrix();
 
         this.rotate(Math.PI/2, -1,0,0);
-        this.scale(200,200,0);
+        this.scale(60,60,0);
         this.topMat.apply();
         this.terrain.display();
 
@@ -206,7 +215,11 @@ class MyScene extends CGFscene {
         this.popMatrix();
         this.pushMatrix();
 
-        this.skybox_day_mat.apply();
+        if(this.day_night){
+            this.skybox_night_mat. apply();
+        }else{
+            this.skybox_day_mat.apply();
+        }
         this.skybox.display();
         
         this.empty.apply();

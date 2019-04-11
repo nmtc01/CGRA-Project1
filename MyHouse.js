@@ -36,6 +36,7 @@ class MyHouse extends CGFobject {
 		//DISPLAY WALLS
 		this.scene.translate(0,1,0);
 		this.scene.scale(2,2,2);
+		this.scene.houseSide.apply();
 		this.wall.display();
 		
         this.scene.popMatrix();
@@ -44,6 +45,7 @@ class MyHouse extends CGFobject {
 		this.scene.translate(0, 2, 0);
 		this.scene.rotate(Math.PI/4,0,1,0);
 		this.scene.scale(2.5,2,2.5);
+		this.scene.empty.apply();
 		this.roof.display();
 		
         this.scene.popMatrix();
