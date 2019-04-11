@@ -33,7 +33,7 @@ class MyScene extends CGFscene {
         this.skybox     = new MyCubeMap(this, this.skybox_mat);
         this.terrain    = new MyQuad(this);
         this.hill       = new MyVoxelHill(this, 10);
-        this.fire       = new MyFire(this, 10, 5, 10, 10, this.trunk_mat, this.top_mat);
+        this.fire       = new MyTree(this, 1, 1, 2, 1, this.trunk_mat, this.fire_mat);
         
         this.terrain.updateTexCoords(this.terrain_coords);
 
@@ -85,6 +85,7 @@ class MyScene extends CGFscene {
         this.sideText = new CGFtexture(this, 'images/mineSide.png');
         this.skyboxText_day = new CGFtexture(this, 'images/Skybox.png');
         this.skyboxText_night = new CGFtexture(this, 'images/Skybox-night.png');
+        this.fireText = new CGFtexture(this, 'images/fire.jpg');
         this.house_side = new CGFtexture(this, 'images/house_side.png');
 
         // MATERIALS
@@ -148,6 +149,13 @@ class MyScene extends CGFscene {
         this.houseSide.setShininess(10.0);
         this.houseSide.setTexture(this.house_side);
         this.houseSide.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.fire_mat = new CGFappearance(this);
+        this.fire_mat.setAmbient(1, 1, 1, 1);
+        this.fire_mat.setDiffuse(1, 1, 1, 0.1);
+        this.fire_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.fire_mat.setShininess(10.0);
+        this.fire_mat.setTexture(this.fireText);
         
         this.empty = new CGFappearance(this);
         this.empty.setAmbient(1, 1, 1, 1);
@@ -270,7 +278,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
         this.pushMatrix();
 		
-		this.translate(10,0,10);
+		this.translate(-15,0,15);
         this.fire.display();
 
         this.empty.apply();
@@ -281,7 +289,7 @@ class MyScene extends CGFscene {
             // NIGHT
             this.lights[0].disable();
             this.lights[0].update();
-            this.lights[1].enable();
+            this.lights[1].disable();
             this.lights[1].update();
             this.lights[2].enable();
             this.lights[2].update();
