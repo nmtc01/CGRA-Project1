@@ -195,7 +195,6 @@ class MyScene extends CGFscene {
         
         this.empty.apply();
         this.pushMatrix();
-
         this.house2.display();
 
         this.empty.apply();
