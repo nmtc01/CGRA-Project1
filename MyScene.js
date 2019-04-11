@@ -52,14 +52,16 @@ class MyScene extends CGFscene {
         this.lights[1].setPosition(0, 200, 200, 1);
         this.lights[1].setVisible(false);
         this.lights[1].setDiffuse(0.21, 0.21, 0.533, 1.0);
+        this.lights[1].setSpecular(0.21, 0.21, 0.533, 0.5);
         this.lights[1].disable();
         this.lights[1].update();
         // FIRE
         this.lights[2].setPosition(0, 3, 0, 1);
         this.lights[2].setVisible(true);
         this.lights[2].setDiffuse(0.886, 0, 0, 1.0);
+        this.lights[2].setSpecular(0.886, 0, 0, 1.0);
         this.lights[2].disable();
-        this.lights[2].setLinearAttenuation(1);
+        this.lights[2].setConstantAttenuation(3);
         this.lights[2].update();
     }
     
@@ -289,7 +291,7 @@ class MyScene extends CGFscene {
             // NIGHT
             this.lights[0].disable();
             this.lights[0].update();
-            this.lights[1].disable();
+            this.lights[1].enable();
             this.lights[1].update();
             this.lights[2].enable();
             this.lights[2].update();
