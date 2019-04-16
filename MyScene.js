@@ -24,8 +24,8 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis       = new CGFaxis(this);
-        this.group 	    = new MyTreeGroupPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.tree_top_mat);
-        this.row        = new MyTreeRowPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.tree_top_mat);
+        this.group 	    = new MyTreeGroupPatch(this, 1.75, 0.4, 1.5, 1, this.trunk_mat, this.tree_top_mat);
+        this.row        = new MyTreeRowPatch(this, 1.75, 0.4, 1.5, 1, this.trunk_mat, this.tree_top_mat);
         this.house0     = new MyHouse(this, 0, this.house_side_mat, this.house_side_mat, this.house_side_mat);
         this.house1     = new MyHouse(this, 1, this.house_side_mat, this.house_side_mat, this.house_side_mat);
         this.house2 	= new MyHouse(this, 2, this.house_side_mat, this.house_side_mat, this.house_side_mat);
@@ -215,30 +215,30 @@ class MyScene extends CGFscene {
 
 // GROUP        
         this.pushMatrix();
-
-        this.scale(0.5,0.5,0.5);
         this.translate(10,0,-20);
         this.group.display();
         this.popMatrix();
         this.pushMatrix();
-        this.translate(32,0,15);
+        this.translate(20,0,-10);
         this.rotate(Math.PI/3,0,-1,0);
         this.group.display();
         this.popMatrix();
 
 // ROW        
         this.pushMatrix();
-        this.translate(10,0,50);
+        this.translate(0,0,15);
+        this.rotate(Math.PI/3,0,-1,0);
         this.row.display();
         this.popMatrix();
         this.pushMatrix();
-        this.translate(2.5,0,-30);
+        this.translate(15,0,5);
+        this.rotate(Math.PI/3,0,-1,0);
         this.row.display();
         this.popMatrix();
 
 // FIRE        
         this.pushMatrix();
-		this.translate(-15,0,15);
+		this.translate(5,0,5);
         this.fire.display();
         this.popMatrix();
 
