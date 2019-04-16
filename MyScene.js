@@ -12,7 +12,6 @@ class MyScene extends CGFscene {
         this.initLights();
         this.initMaterials();
         this.initCoords();
-        this.updateTimeOfTheDay();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -46,12 +45,6 @@ class MyScene extends CGFscene {
 			'Day': 0,
             'Night': 1
 		};
-    }
-
-    updateTimeOfTheDay() {
-        if (this.day_night == 0)
-            this.day_night = 1;
-        else this.day_night = 1;
     }
     
     initLights() {
@@ -213,7 +206,7 @@ class MyScene extends CGFscene {
 // DRAWING
 // SKYBOX
         this.pushMatrix();
-        if(this.day_night)  this.skybox_night_mat.apply();
+        if(this.day_night == 1)  this.skybox_night_mat.apply();
         else   this.skybox_day_mat.apply();
         this.skybox.display();
         this.popMatrix();
@@ -280,7 +273,7 @@ class MyScene extends CGFscene {
 
 // END DRAWING
 
-        if(this.day_night){
+        if(this.day_night == 1){
             // NIGHT
             this.lights[0].disable();
             this.lights[0].update();
