@@ -163,8 +163,8 @@ class MyScene extends CGFscene {
 
         this.house_column_mat = new CGFappearance(this);
         this.house_column_mat.setAmbient(1, 1, 1, 1);
-        this.house_column_mat.setDiffuse(1, 1, 1, 0);
-        this.house_column_mat.setSpecular(1, 1, 1, 1);
+        this.house_column_mat.setDiffuse(1, 1, 1, 1);
+        this.house_column_mat.setSpecular(1, 1, 1, 0);
         this.house_column_mat.setShininess(10.0);
         this.house_column_mat.setTexture(this.house_column_text);
         this.house_column_mat.setTextureWrap('REPEAT', 'REPEAT');
