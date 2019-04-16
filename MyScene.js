@@ -26,9 +26,9 @@ class MyScene extends CGFscene {
         this.axis       = new CGFaxis(this);
         this.group 	    = new MyTreeGroupPatch(this, 1.75, 0.4, 1.5, 1, this.trunk_mat, this.tree_top_mat);
         this.row        = new MyTreeRowPatch(this, 1.75, 0.4, 1.5, 1, this.trunk_mat, this.tree_top_mat);
-        this.house0     = new MyHouse(this, 0, this.house_side_mat, this.house_side_mat, this.house_side_mat);
-        this.house1     = new MyHouse(this, 1, this.house_side_mat, this.house_side_mat, this.house_side_mat);
-        this.house2 	= new MyHouse(this, 2, this.house_side_mat, this.house_side_mat, this.house_side_mat);
+        this.house0     = new MyHouse(this, 0, this.house_side_mat, this.house_roof_mat, this.house_column_mat);
+        this.house1     = new MyHouse(this, 1, this.house_side_mat, this.house_roof_mat, this.house_column_mat);
+        this.house2 	= new MyHouse(this, 2, this.house_side_mat, this.house_roof_mat, this.house_column_mat);
         this.skybox     = new MyCubeMap(this, this.skybox_mat);
         this.terrain    = new MyQuad(this);
         this.hill       = new MyVoxelHill(this, 10, this.block_top_mat, this.block_bot_mat, this.block_side_mat);
@@ -55,7 +55,7 @@ class MyScene extends CGFscene {
         this.lights[1].disable();
         this.lights[1].update();
         // FIRE
-        this.lights[2].setPosition(0, 3, 0, 1);
+        this.lights[2].setPosition(5, 0, 5, 1);
         this.lights[2].setVisible(true);
         this.lights[2].setDiffuse(0.886, 0, 0, 1.0);
         this.lights[2].setSpecular(0.886, 0, 0, 1.0);
@@ -88,20 +88,22 @@ class MyScene extends CGFscene {
         this.skybox_night_text  = new CGFtexture(this, 'images/Skybox-night.png');
         this.fire_text          = new CGFtexture(this, 'images/fire.jpg');
         this.house_side_text    = new CGFtexture(this, 'images/house_side.png');
+        this.house_roof_text    = new CGFtexture(this, 'images/palha.jpg');
+        this.house_column_text  = new CGFtexture(this, 'images/wood.jpeg');
 
         // MATERIALS
         this.trunk_mat = new CGFappearance(this)
         this.trunk_mat.setAmbient(1, 1, 1, 1);
-        this.trunk_mat.setDiffuse(1, 1, 1, 0.1);
-        this.trunk_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
+        this.trunk_mat.setDiffuse(1, 1, 1, 1);
+        this.trunk_mat.setSpecular(0.1, 0.1, 0.1, 0);
         this.trunk_mat.setShininess(10.0);
         this.trunk_mat.setTexture(this.trunk_text);
         this.trunk_mat.setTextureWrap('REPEAT', 'REPEAT');
         
         this.tree_top_mat = new CGFappearance(this);
         this.tree_top_mat.setAmbient(1, 1, 1, 1);
-        this.tree_top_mat.setDiffuse(1, 1, 1, 0.1);
-        this.tree_top_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.tree_top_mat.setDiffuse(1, 1, 1, 1);
+        this.tree_top_mat.setSpecular(0.1, 0.1, 0.1, 0);
         this.tree_top_mat.setShininess(10.0);
         this.tree_top_mat.setTexture(this.tree_top_text);
 
@@ -129,32 +131,48 @@ class MyScene extends CGFscene {
 
 		this.block_side_mat = new CGFappearance(this);
         this.block_side_mat.setAmbient(1, 1, 1, 1.0);
-        this.block_side_mat.setDiffuse(1, 1, 1, 0.01);
-        this.block_side_mat.setSpecular(1, 1, 1, 1.0);
+        this.block_side_mat.setDiffuse(1, 1, 1, 1);
+        this.block_side_mat.setSpecular(1, 1, 1, 0.1);
         this.block_side_mat.setShininess(10.0);
         this.block_side_mat.setTexture(this.block_side_text);
         this.block_side_mat.setTextureWrap('REPEAT', 'REPEAT');
 		
 		this.block_bot_mat = new CGFappearance(this);
         this.block_bot_mat.setAmbient(1, 1, 1, 1.0);
-        this.block_bot_mat.setDiffuse(1, 1, 1, 0.01);
-        this.block_bot_mat.setSpecular(1, 1, 1, 1.0);
+        this.block_bot_mat.setDiffuse(1, 1, 1, 1);
+        this.block_bot_mat.setSpecular(1, 1, 1, 0.1);
         this.block_bot_mat.setShininess(10.0);
         this.block_bot_mat.setTexture(this.block_bot_text);
         this.block_bot_mat.setTextureWrap('REPEAT', 'REPEAT');
 		
 		this.house_side_mat = new CGFappearance(this);
         this.house_side_mat.setAmbient(1, 1, 1, 1.0);
-        this.house_side_mat.setDiffuse(1, 1, 1, 0.01);
-        this.house_side_mat.setSpecular(1, 1, 1, 1.0);
+        this.house_side_mat.setDiffuse(1, 1, 1, 1);
+        this.house_side_mat.setSpecular(1, 1, 1, 0);
         this.house_side_mat.setShininess(10.0);
         this.house_side_mat.setTexture(this.house_side_text);
         this.house_side_mat.setTextureWrap('REPEAT', 'REPEAT');
 
+        this.house_roof_mat = new CGFappearance(this);
+        this.house_roof_mat.setAmbient(1, 1, 1, 1);
+        this.house_roof_mat.setDiffuse(1, 1, 1, 0);
+        this.house_roof_mat.setSpecular(1, 1, 1, 1);
+        this.house_roof_mat.setShininess(10.0);
+        this.house_roof_mat.setTexture(this.house_roof_text);
+        this.house_roof_mat.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.house_column_mat = new CGFappearance(this);
+        this.house_column_mat.setAmbient(1, 1, 1, 1);
+        this.house_column_mat.setDiffuse(1, 1, 1, 0);
+        this.house_column_mat.setSpecular(1, 1, 1, 1);
+        this.house_column_mat.setShininess(10.0);
+        this.house_column_mat.setTexture(this.house_column_text);
+        this.house_column_mat.setTextureWrap('REPEAT', 'REPEAT');
+
         this.fire_mat = new CGFappearance(this);
         this.fire_mat.setAmbient(1, 1, 1, 1);
         this.fire_mat.setDiffuse(1, 1, 1, 0.1);
-        this.fire_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.fire_mat.setSpecular(1, 1, 1, 0.1);
         this.fire_mat.setShininess(10.0);
         this.fire_mat.setTexture(this.fire_text);
     }
