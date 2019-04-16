@@ -16,7 +16,7 @@ class MyInterface extends CGFinterface {
         
         var obj = this;
 
-        this.gui.add(this.scene, 'day_night').name('Day/Night');
+        this.gui.add(this.scene, 'day_night', this.scene.timeOfTheDay).name('Time of the day').onChange();
         this.gui.add(this.scene, 'textures').name('Textures ON/OFF');
 
         return true;

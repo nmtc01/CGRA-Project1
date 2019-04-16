@@ -22,7 +22,7 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         //Objects connected to MyInterface
-        this.day_night = false;
+        this.day_night = 0;
         this.textures = true;
 
         this.enableTextures(this.textures);
@@ -40,6 +40,11 @@ class MyScene extends CGFscene {
         this.fire       = new MyTree(this, 1, 1, 2, 1, this.trunk_mat, this.fire_mat);
         
         this.terrain.updateTexCoords(this.terrain_coords);
+
+        this.timeOfTheDay = {
+			'Day': 0,
+			'Night': 1
+		};
     }
     
     initLights() {
