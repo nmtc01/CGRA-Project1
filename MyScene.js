@@ -70,10 +70,10 @@ class MyScene extends CGFscene {
     
     initCoords() {
         this.terrain_coords = [
-			0, 100,
-			100, 100,
+			0, 50,
+			50, 50,
 			0, 0,
-			100, 0
+			50, 0
 		]
     }
 
@@ -157,13 +157,6 @@ class MyScene extends CGFscene {
         this.fire_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
         this.fire_mat.setShininess(10.0);
         this.fire_mat.setTexture(this.fire_text);
-        
-        this.empty = new CGFappearance(this);
-        this.empty.setAmbient(1, 1, 1, 1);
-        this.empty.setDiffuse(1, 1, 1, 1);
-        this.empty.setSpecular(1, 1, 1, 1);
-        this.empty.setShininess(10.0);
-        
     }
 
     setDefaultAppearance() {
@@ -174,116 +167,82 @@ class MyScene extends CGFscene {
     }
 
     display() {
-        // ---- BEGIN Background, camera and axis setup
-        // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-        // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
-        // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-
-        // Draw axis
-        //this.axis.display();
-
-        //Apply default appearance
         this.setDefaultAppearance();
 
-        // ---- BEGIN Primitive drawing section
-        
-        this.empty.apply();
+// DRAWING
+// SKYBOX
         this.pushMatrix();
-        this.house2.display();
-
-        this.empty.apply();
+        if(this.day_night)  this.skybox_night_mat. apply();
+        else   this.skybox_day_mat.apply();
+        this.skybox.display();
         this.popMatrix();
+
+// TERRAIN
         this.pushMatrix();
-
-        this.translate(0,0,2.4);
-        this.house0.display();
-        
-        this.empty.apply();
-        this.popMatrix();
-        this.pushMatrix();
-
-        this.translate(3.4,0,0);
-        this.house1.display();
-
-        this.empty.apply();
-        this.popMatrix();
-        this.pushMatrix();
-
         this.rotate(Math.PI/2, -1,0,0);
         this.scale(60,60,0);
         this.block_top_mat.apply();
         this.terrain.display();
+        this.popMatrix();
 
-        this.empty.apply();
+// HOUSE
+        this.pushMatrix();
+        this.house2.display();
         this.popMatrix();
         this.pushMatrix();
-
-        if(this.day_night){
-            this.skybox_night_mat. apply();
-        }else{
-            this.skybox_day_mat.apply();
-        }
-        this.skybox.display();
-        
-        this.empty.apply();
+        this.translate(0,0,2.4);
+        this.house0.display();
         this.popMatrix();
         this.pushMatrix();
+        this.translate(3.4,0,0);
+        this.house1.display();
+        this.popMatrix();
 
+// HILL        
+        this.pushMatrix();
         this.translate(-15,0,0);
         this.hill.display();
-        
-        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
-
         this.translate(-10,0,-15);
         this.hill.display();
-        
-        this.empty.apply();
         this.popMatrix();
+
+// GROUP        
         this.pushMatrix();
 
         this.scale(0.5,0.5,0.5);
         this.translate(10,0,-20);
         this.group.display();
-        
-        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
-
         this.translate(32,0,15);
         this.rotate(Math.PI/3,0,-1,0);
         this.group.display();
-		
-		this.empty.apply();
         this.popMatrix();
+
+// ROW        
         this.pushMatrix();
-		
         this.translate(10,0,50);
         this.row.display();
-
-        this.empty.apply();
         this.popMatrix();
         this.pushMatrix();
-		
         this.translate(2.5,0,-30);
         this.row.display();
-        
-        this.empty.apply();
         this.popMatrix();
+
+// FIRE        
         this.pushMatrix();
-		
 		this.translate(-15,0,15);
         this.fire.display();
-
-        this.empty.apply();
         this.popMatrix();
-        // ---- END Primitive drawing section
+
+// END DRAWING
 
         if(this.day_night){
             // NIGHT
