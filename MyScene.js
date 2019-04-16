@@ -20,7 +20,12 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
-        this.enableTextures(true);
+
+        //Objects connected to MyInterface
+        this.day_night = false;
+        this.textures = true;
+
+        this.enableTextures(this.textures);
 
         //Initialize scene objects
         this.axis       = new CGFaxis(this);
@@ -35,9 +40,6 @@ class MyScene extends CGFscene {
         this.fire       = new MyTree(this, 1, 1, 2, 1, this.trunk_mat, this.fire_mat);
         
         this.terrain.updateTexCoords(this.terrain_coords);
-
-        //Objects connected to MyInterface
-        this.day_night = false;
     }
     
     initLights() {
@@ -193,6 +195,8 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         this.applyViewMatrix();
         this.setDefaultAppearance();
+
+        this.enableTextures(this.textures);
 
 // DRAWING
 // SKYBOX
