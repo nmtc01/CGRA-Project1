@@ -45,6 +45,7 @@ class MyScene extends CGFscene {
         this.lights[0].setPosition(0, 200, 200, 1);
         this.lights[0].setVisible(false);
         this.lights[0].setDiffuse(0.945, 0.855, 0.643, 1.0);
+        this.lights[0].setConstantAttenuation(1);
         this.lights[0].enable();
         this.lights[0].update();
         // MOON
@@ -52,15 +53,16 @@ class MyScene extends CGFscene {
         this.lights[1].setVisible(false);
         this.lights[1].setDiffuse(0.21, 0.21, 0.533, 1.0);
         this.lights[1].setSpecular(0.21, 0.21, 0.533, 0.5);
+        this.lights[1].setLinearAttenuation(0.5);
         this.lights[1].disable();
         this.lights[1].update();
         // FIRE
-        this.lights[2].setPosition(5, 0, 5, 1);
+        this.lights[2].setPosition(5, 3, 5, 1);
         this.lights[2].setVisible(true);
         this.lights[2].setDiffuse(0.886, 0, 0, 1.0);
         this.lights[2].setSpecular(0.886, 0, 0, 1.0);
         this.lights[2].disable();
-        this.lights[2].setConstantAttenuation(3);
+        this.lights[2].setQuadraticAttenuation(0.01);
         this.lights[2].update();
     }
     
