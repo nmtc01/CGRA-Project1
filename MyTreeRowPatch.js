@@ -59,6 +59,8 @@ class MyTreeRowPatch extends CGFobject {
 
             this.scene.popMatrix();
         }
+        
+        this.scene.popMatrix();
 	}
 }
 
