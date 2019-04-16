@@ -3,13 +3,17 @@
 * @constructor
 */
 class MyVoxelHill extends CGFobject {
-        constructor(scene, height) {
+        constructor(scene, height, top_mat, bot_mat, side_mat) {
                 super(scene);
 
                 this.height = height;
+                
+                this.top_mat = top_mat;
+                this.bot_mat = bot_mat;
+                this.side_mat = side_mat;
 
                 // Objects
-                this.block = new MyUnitCubeQuad(scene, scene.top_mat, scene.botMat, scene.sideMat);
+                this.block = new MyUnitCubeQuad(scene, this.top_mat, this.bot_mat, this.side_mat);
 
         }
 

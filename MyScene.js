@@ -23,16 +23,15 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         //Initialize scene objects
-        this.axis = new CGFaxis(this);
-        this.tree   = new MyTree(this, 3, 1, 3, 3, this.trunk_mat, this.top_mat);
-        this.group 	= new MyTreeGroupPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
-        this.row    = new MyTreeRowPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.top_mat);
-        this.house2 	= new MyHouse(this, 2);
-        this.house1     = new MyHouse(this, 1);
-        this.house0     = new MyHouse(this, 0);
+        this.axis       = new CGFaxis(this);
+        this.group 	    = new MyTreeGroupPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.tree_top_mat);
+        this.row        = new MyTreeRowPatch(this, 3.5, 0.8, 3, 2, this.trunk_mat, this.tree_top_mat);
+        this.house0     = new MyHouse(this, 0, this.house_side_mat, this.house_side_mat, this.house_side_mat);
+        this.house1     = new MyHouse(this, 1, this.house_side_mat, this.house_side_mat, this.house_side_mat);
+        this.house2 	= new MyHouse(this, 2, this.house_side_mat, this.house_side_mat, this.house_side_mat);
         this.skybox     = new MyCubeMap(this, this.skybox_mat);
         this.terrain    = new MyQuad(this);
-        this.hill       = new MyVoxelHill(this, 10);
+        this.hill       = new MyVoxelHill(this, 10, this.block_top_mat, this.block_bot_mat, this.block_side_mat);
         this.fire       = new MyTree(this, 1, 1, 2, 1, this.trunk_mat, this.fire_mat);
         
         this.terrain.updateTexCoords(this.terrain_coords);
@@ -80,15 +79,15 @@ class MyScene extends CGFscene {
 
     initMaterials(){
         // TEXTURES
-        this.trunk_text = new CGFtexture(this, 'images/trunk.png');
-        this.top_text = new CGFtexture(this, 'images/top.png');
-        this.topText = new CGFtexture(this, 'images/mineTop.png');
-		this.botText = new CGFtexture(this, 'images/mineBottom.png');
-        this.sideText = new CGFtexture(this, 'images/mineSide.png');
-        this.skyboxText_day = new CGFtexture(this, 'images/Skybox.png');
-        this.skyboxText_night = new CGFtexture(this, 'images/Skybox-night.png');
-        this.fireText = new CGFtexture(this, 'images/fire.jpg');
-        this.house_side = new CGFtexture(this, 'images/house_side.png');
+        this.trunk_text         = new CGFtexture(this, 'images/trunk.png');
+        this.tree_top_text      = new CGFtexture(this, 'images/top.png');
+        this.block_top_text     = new CGFtexture(this, 'images/mineTop.png');
+		this.block_bot_text     = new CGFtexture(this, 'images/mineBottom.png');
+        this.block_side_text    = new CGFtexture(this, 'images/mineSide.png');
+        this.skybox_day_text    = new CGFtexture(this, 'images/Skybox.png');
+        this.skybox_night_text  = new CGFtexture(this, 'images/Skybox-night.png');
+        this.fire_text          = new CGFtexture(this, 'images/fire.jpg');
+        this.house_side_text    = new CGFtexture(this, 'images/house_side.png');
 
         // MATERIALS
         this.trunk_mat = new CGFappearance(this)
@@ -99,65 +98,65 @@ class MyScene extends CGFscene {
         this.trunk_mat.setTexture(this.trunk_text);
         this.trunk_mat.setTextureWrap('REPEAT', 'REPEAT');
         
-        this.top_mat = new CGFappearance(this);
-        this.top_mat.setAmbient(1, 1, 1, 1);
-        this.top_mat.setDiffuse(1, 1, 1, 0.1);
-        this.top_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
-        this.top_mat.setShininess(10.0);
-        this.top_mat.setTexture(this.top_text);
+        this.tree_top_mat = new CGFappearance(this);
+        this.tree_top_mat.setAmbient(1, 1, 1, 1);
+        this.tree_top_mat.setDiffuse(1, 1, 1, 0.1);
+        this.tree_top_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.tree_top_mat.setShininess(10.0);
+        this.tree_top_mat.setTexture(this.tree_top_text);
 
         this.skybox_day_mat = new CGFappearance(this)
         this.skybox_day_mat.setAmbient(1, 1, 1, 1);
         this.skybox_day_mat.setDiffuse(1, 1, 1, 0.1);
         this.skybox_day_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
         this.skybox_day_mat.setShininess(10.0);
-        this.skybox_day_mat.setTexture(this.skyboxText_day);
+        this.skybox_day_mat.setTexture(this.skybox_day_text);
 
         this.skybox_night_mat = new CGFappearance(this)
         this.skybox_night_mat.setAmbient(1, 1, 1, 1);
         this.skybox_night_mat.setDiffuse(1, 1, 1, 0.1);
         this.skybox_night_mat.setSpecular(0.1, 0.1, 0.1, 0.11);
         this.skybox_night_mat.setShininess(10.0);
-        this.skybox_night_mat.setTexture(this.skyboxText_night);
+        this.skybox_night_mat.setTexture(this.skybox_night_text);
 
-        this.topMat = new CGFappearance(this);
-        this.topMat.setAmbient(1, 1, 1, 1);
-        this.topMat.setDiffuse(1, 1, 1, 1);
-        this.topMat.setSpecular(0.1, 0.1, 0.1, 0.1);
-        this.topMat.setShininess(10.0);
-        this.topMat.setTexture(this.topText);
-        this.topMat.setTextureWrap('REPEAT', 'REPEAT');
+        this.block_top_mat = new CGFappearance(this);
+        this.block_top_mat.setAmbient(1, 1, 1, 1);
+        this.block_top_mat.setDiffuse(1, 1, 1, 1);
+        this.block_top_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.block_top_mat.setShininess(10.0);
+        this.block_top_mat.setTexture(this.block_top_text);
+        this.block_top_mat.setTextureWrap('REPEAT', 'REPEAT');
 
-		this.sideMat = new CGFappearance(this);
-        this.sideMat.setAmbient(1, 1, 1, 1.0);
-        this.sideMat.setDiffuse(1, 1, 1, 0.01);
-        this.sideMat.setSpecular(1, 1, 1, 1.0);
-        this.sideMat.setShininess(10.0);
-        this.sideMat.setTexture(this.sideText);
-        this.sideMat.setTextureWrap('REPEAT', 'REPEAT');
+		this.block_side_mat = new CGFappearance(this);
+        this.block_side_mat.setAmbient(1, 1, 1, 1.0);
+        this.block_side_mat.setDiffuse(1, 1, 1, 0.01);
+        this.block_side_mat.setSpecular(1, 1, 1, 1.0);
+        this.block_side_mat.setShininess(10.0);
+        this.block_side_mat.setTexture(this.block_side_text);
+        this.block_side_mat.setTextureWrap('REPEAT', 'REPEAT');
 		
-		this.botMat = new CGFappearance(this);
-        this.botMat.setAmbient(1, 1, 1, 1.0);
-        this.botMat.setDiffuse(1, 1, 1, 0.01);
-        this.botMat.setSpecular(1, 1, 1, 1.0);
-        this.botMat.setShininess(10.0);
-        this.botMat.setTexture(this.botText);
-        this.botMat.setTextureWrap('REPEAT', 'REPEAT');
+		this.block_bot_mat = new CGFappearance(this);
+        this.block_bot_mat.setAmbient(1, 1, 1, 1.0);
+        this.block_bot_mat.setDiffuse(1, 1, 1, 0.01);
+        this.block_bot_mat.setSpecular(1, 1, 1, 1.0);
+        this.block_bot_mat.setShininess(10.0);
+        this.block_bot_mat.setTexture(this.block_bot_text);
+        this.block_bot_mat.setTextureWrap('REPEAT', 'REPEAT');
 		
-		this.houseSide = new CGFappearance(this);
-        this.houseSide.setAmbient(1, 1, 1, 1.0);
-        this.houseSide.setDiffuse(1, 1, 1, 0.01);
-        this.houseSide.setSpecular(1, 1, 1, 1.0);
-        this.houseSide.setShininess(10.0);
-        this.houseSide.setTexture(this.house_side);
-        this.houseSide.setTextureWrap('REPEAT', 'REPEAT');
+		this.house_side_mat = new CGFappearance(this);
+        this.house_side_mat.setAmbient(1, 1, 1, 1.0);
+        this.house_side_mat.setDiffuse(1, 1, 1, 0.01);
+        this.house_side_mat.setSpecular(1, 1, 1, 1.0);
+        this.house_side_mat.setShininess(10.0);
+        this.house_side_mat.setTexture(this.house_side_text);
+        this.house_side_mat.setTextureWrap('REPEAT', 'REPEAT');
 
         this.fire_mat = new CGFappearance(this);
         this.fire_mat.setAmbient(1, 1, 1, 1);
         this.fire_mat.setDiffuse(1, 1, 1, 0.1);
         this.fire_mat.setSpecular(0.1, 0.1, 0.1, 0.1);
         this.fire_mat.setShininess(10.0);
-        this.fire_mat.setTexture(this.fireText);
+        this.fire_mat.setTexture(this.fire_text);
         
         this.empty = new CGFappearance(this);
         this.empty.setAmbient(1, 1, 1, 1);
@@ -217,7 +216,7 @@ class MyScene extends CGFscene {
 
         this.rotate(Math.PI/2, -1,0,0);
         this.scale(60,60,0);
-        this.topMat.apply();
+        this.block_top_mat.apply();
         this.terrain.display();
 
         this.empty.apply();
