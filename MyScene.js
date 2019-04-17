@@ -37,7 +37,7 @@ class MyScene extends CGFscene {
         this.skybox     = new MyCubeMap(this, this.skybox_mat);
         this.terrain    = new MyQuad(this);
         this.hill       = new MyVoxelHill(this, 10, this.block_top_mat, this.block_bot_mat, this.block_side_mat);
-        this.fire       = new MyTree(this, 1, 1, 2, 1, this.trunk_mat, this.fire_mat);
+        this.fire       = new MyTree(this, 0.2, 0.75, 1, 0.75, this.trunk_mat, this.fire_mat);
         
         this.terrain.updateTexCoords(this.terrain_coords);
 
@@ -65,7 +65,7 @@ class MyScene extends CGFscene {
         this.lights[1].update();
         // FIRE
         this.lights[2].setPosition(5, 3, 5, 1);
-        this.lights[2].setVisible(true);
+        this.lights[2].setVisible(false);
         this.lights[2].setDiffuse(0.886, 0, 0, 1.0);
         this.lights[2].setSpecular(0.886, 0, 0, 1.0);
         this.lights[2].disable();
@@ -74,15 +74,15 @@ class MyScene extends CGFscene {
     }
     
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(100, 50, 100), vec3.fromValues(0, 0, 0));
     }
     
     initCoords() {
         this.terrain_coords = [
-			0, 50,
-			50, 50,
+			0, 75,
+			75, 75,
 			0, 0,
-			50, 0
+			75, 0
 		]
     }
 
@@ -179,9 +179,9 @@ class MyScene extends CGFscene {
         this.house_column_mat.setTextureWrap('REPEAT', 'REPEAT');
 
         this.fire_mat = new CGFappearance(this);
-        this.fire_mat.setAmbient(1, 1, 1, 1);
-        this.fire_mat.setDiffuse(1, 1, 1, 0.1);
-        this.fire_mat.setSpecular(1, 1, 1, 0.1);
+        this.fire_mat.setAmbient(1, 1, 1, 0.1);
+        this.fire_mat.setDiffuse(1, 1, 1, 1);
+        this.fire_mat.setSpecular(1, 1, 1, 1);
         this.fire_mat.setShininess(10.0);
         this.fire_mat.setTexture(this.fire_text);
     }
@@ -196,6 +196,7 @@ class MyScene extends CGFscene {
     display() {
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
         this.updateProjectionMatrix();
         this.loadIdentity();
         this.applyViewMatrix();
@@ -214,8 +215,9 @@ class MyScene extends CGFscene {
 // TERRAIN
         this.pushMatrix();
         this.rotate(Math.PI/2, -1,0,0);
-        this.scale(60,60,0);
+        this.scale(150,150,0);
         this.block_top_mat.apply();
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
         this.terrain.display();
         this.popMatrix();
 
@@ -261,7 +263,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
         this.pushMatrix();
         this.translate(15,0,5);
-        this.rotate(Math.PI/3,0,-1,0);
+        this.rotate(Math.PI/3+Math.PI,0,-1,0);
         this.row.display();
         this.popMatrix();
 

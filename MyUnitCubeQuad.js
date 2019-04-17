@@ -15,6 +15,7 @@ class MyUnitCubeQuad extends CGFobject {
 	display() {
 		//Face Inferior
 		this.botT.apply();
+		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI / 2, 1, 0, 0);
 		this.scene.translate(0, 0, 0.5);
@@ -23,6 +24,7 @@ class MyUnitCubeQuad extends CGFobject {
 
 		//Face Superior
 		this.topT.apply();
+		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 		this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI / 2, 1, 0, 0);
 		this.scene.translate(0, 0, 0.5);
@@ -31,6 +33,7 @@ class MyUnitCubeQuad extends CGFobject {
 
 		//Faces Laterais
 		this.sideT.apply();
+		this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 		this.scene.pushMatrix();
 		this.scene.translate(0, 0, 0.5);
 		this.quad.display();
